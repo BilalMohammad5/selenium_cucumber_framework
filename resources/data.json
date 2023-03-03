@@ -1,0 +1,10 @@
+{ "testData": [
+
+{
+"userName" : "test1trew@gmail.com",
+  "password": "test1",
+  "profileCreator":"Self",
+  "gender": "Male"
+}
+]
+}
