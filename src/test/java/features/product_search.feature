@@ -1,17 +1,15 @@
-Feature:Home Page features
+Feature: Product features
 
-  Background:
-    Given user launches golden_scent
-    Then user should be able to see golden_scent home page
+ // Background:
 
-  @smoke
   Scenario Outline: golden scent product search
-    When user searches for product <product_name>
-#    And  selects a product from the result
-#    Then user should be able to see product page
-Examples:
-      |product_name|
-      |Gucci Guilty Absolute Pour Homme|
+    Given user logs into golden_scent application using <email> and <password>
+    When  user searches for a product  <product_name>
+    And   user selects a product
+    Then  user should navigate to product page
+    Examples:
+      |email|password|product_name|
+      |bilalroshan5@gmail.com|Bilal@2595|Gucci Guilty Absolute Pour Homme|
 
 
 

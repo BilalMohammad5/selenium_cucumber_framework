@@ -5,14 +5,23 @@ import io.cucumber.java.*;
 import org.openqa.selenium.WebDriver;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class Hooks extends BaseClass {
+    static WebDriver driver;
+
+    static {
+        try {
+            driver = initDriver();   //Initiating web_driver instance
+        } catch (Exception e) {
+            e.getMessage();
+            e.printStackTrace();
+        }
+    }
 
 
     @BeforeAll
-    public static void before_all() throws SQLException, IOException, ClassNotFoundException {
-        WebDriver driver = initDriver();   //Initiating web_driver instance
+    public static void before_all() {
+
         driver.manage().window().maximize();
         System.out.println("maximising window");
 

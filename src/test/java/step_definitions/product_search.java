@@ -6,23 +6,15 @@ import config.PageObject;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.testng.Assert;
 import org.testng.annotations.Listeners;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Properties;
 
 @Listeners(listernerConfig.Listeners.class)
 public class product_search extends BaseClass {
-
-    //loading test data from properties file
-    Properties prop = new Properties();
-
     String expectedTitle = "Perfumes On Sale and more at Golden Scent";
     String product_page_title;
-    String baseurl = "goldenscent.com/en/";
-    //WebDriver driver = initDriver();
     PageObject element = new PageObject(driver); // Creating Page Object reference
     Helper action = new Helper(driver); // Creating helper class Object reference
 
@@ -30,23 +22,29 @@ public class product_search extends BaseClass {
     }
 
     //step definitions for features
-    @Given("^user launches golden_scent$")
-    public void user_launches_golden_scent() {
-        product_page_title = driver.getTitle();
+    @Given("^user logs into golden_scent application using ([^\"]*) and ([^\"]*)$")
+    public void user_logs_into_golden_scent_application_using_email_and_password(String email, String password) {
+        action.click_element(element.view_account_button());   //invoking reusable click_element function from helper class
+        action.enter_text(element.email_id(),email);           //invoking reusable click_element function from helper class
+        action.enter_text(element.pwd(),password);
+        action.click_element(element.login_button());
+
+        // code for validating pop up//
     }
 
-    @Then("^user should be able to see golden_scent home page$")
-    public void user_should_be_able_to_see_golden_scent_home_page() {
-
-        Assert.assertEquals(product_page_title, expectedTitle);
-        System.out.println("user is on golden scent home page");
+    @When("user searches for a product  Gucci Guilty Absolute Pour Homme")
+    public void user_searches_for_a_product_gucci_guilty_absolute_pour_homme() {
 
     }
 
-    @When("^user searches for product ([^\"]*)$")
-    public void user_searches_for_product(String product_name) {
-        action.click_element(element.search_bar());
-        System.out.println(product_name);
+    @When("user selects a product")
+    public void user_selects_a_product() {
+
+    }
+
+    @Then("user should navigate to product page")
+    public void user_should_navigate_to_product_page() {
+
     }
 
 

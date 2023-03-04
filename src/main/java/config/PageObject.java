@@ -7,13 +7,14 @@ import org.openqa.selenium.WebElement;
 public class PageObject extends BaseClass {
 
     //Landing page Elements
-
+    By view_account_button = By.xpath("//div[@data-testid='accountButton']");
+    By email_id = By.xpath("//div[@class='relative']/label[.='E-mail address *']/../input");
+    By pwd =  By.xpath("//div[@class='relative']/label[.='Password *']/../input");
     By search_bar = By.xpath("//div[@class='search-bar']/input");
-    By password = By.id("txtPassword");
-    By login = By.id("submit");
-    By txaProfile = By.xpath("//*[@id='currentModule']/div[2]/div/a/span[2]");
-    By inserButton = By.id("insertButton");
-    By profileName = By.xpath("//div[@class='currentRow']/div[2]/input");
+    By login_button = By.xpath("//div[@class='modal-content']//button[contains(text(),'Log in to your account')]");
+    By logged_in_popup =  By.xpath("//div[@class='modal-content']//button[contains(text(),'Log in to your account')]");
+
+
     By description = By.xpath("//div[@class='currentRow']/div[3]/input");
     By descriptionHeader = By.xpath("//div[@class='currentRow']/div[3]");
     By userMenu = By.xpath("//div[@id='activeUserMenu']/div/img");
@@ -26,61 +27,24 @@ public class PageObject extends BaseClass {
     }
 
     //returning elements
-    public WebElement search_bar() {
+    public WebElement view_account_button() {
 
-        return driver.findElement(search_bar);
-
-    }
-    public WebElement password() {
-
-        return driver.findElement(password);
+        return driver.findElement(view_account_button);
 
     }
-    public WebElement login() {
+    public WebElement login_button() {
 
-        return driver.findElement(login);
-
-    }
-    public WebElement taxProfile() {
-
-        return driver.findElement(txaProfile);
+        return driver.findElement(login_button);
 
     }
-    public WebElement inserButton() {
+    public WebElement email_id() {
 
-        return driver.findElement(inserButton);
-
-    }
-    public WebElement profileName() {
-
-        return driver.findElement(profileName);
+        return driver.findElement(email_id);
 
     }
-    public WebElement description() {
+    public WebElement pwd() {
 
-        return driver.findElement(description);
-
-    }
-    public WebElement save() {
-
-        return driver.findElement(save);
+        return driver.findElement(pwd);
 
     }
-    public WebElement descriptionHeader() {
-
-        return driver.findElement(descriptionHeader);
-
-    }
-    public WebElement userMenu() {
-
-        return driver.findElement(userMenu);
-
-    }
-    public WebElement logout() {
-
-        return driver.findElement(logout);
-
-    }
-
-
 }

@@ -24,7 +24,7 @@ public class BaseClass {
 		String base_url = "https://www.goldenscent.com/en/";
 
 		if (browser.toLowerCase().equals("chrome")) {
-			// System.out.println("Test initiated using chrome browser");
+			// System.out.println("Test initiated using Chrome browser");
 
 			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") +"\\drivers\\chromedriver.exe");
 			driver = new ChromeDriver();
@@ -41,7 +41,6 @@ public class BaseClass {
 		}
 
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		driver.manage().window().maximize();
 		return driver;
 	}
 
