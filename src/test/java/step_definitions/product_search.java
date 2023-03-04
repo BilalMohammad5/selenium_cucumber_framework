@@ -1,7 +1,7 @@
 package step_definitions;
 
+import Helper.Helper;
 import config.BaseClass;
-import config.Helper;
 import config.PageObject;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -15,12 +15,15 @@ import org.testng.annotations.Listeners;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 @Listeners(listernerConfig.Listeners.class)
 public class product_search extends BaseClass {
     String rating;
+    String actual_amount;
     WebDriverWait wait = new WebDriverWait(driver, 30);
 
     String product_url = "https://www.goldenscent.com/en/p/gucci-guilty-absolute-pour-homme-eau-de-parfum-for-men.html?action=prod&id=6108";
@@ -68,8 +71,11 @@ public class product_search extends BaseClass {
 
     @Then("user should navigate to product page")
     public void user_should_navigate_to_product_page() {
+
+        Assert.assertTrue(element.product_added_to_cart().isDisplayed());
+        System.out.println("Product added to cart");
     }
-    //Scenario Outline: Verify product rating
+
 
     @Given("^User launches the product ([^\"]*)$")
     public void user_launches_the_product(String product_name) {
@@ -82,9 +88,9 @@ public class product_search extends BaseClass {
     }
 
     @When("^User verifies Product rating$")
-    public void  ser_verifies_product_rating() {
+    public void ser_verifies_product_rating() {
         try {
-             rating = element.rating_by_number().getText();
+            rating = element.rating_by_number().getText();
             System.out.println("product rating is" + "\t" + rating);
         } catch (Throwable e) {
             action.close_pop_up();   //pop up killer
@@ -97,14 +103,54 @@ public class product_search extends BaseClass {
     @Then("^User should be able see that rating is more than ([^\"]*) stars$")
     public void user_should_be_able_to_see_that_the_product_ratings(String product_rating) {
 
-        action.compare_ratings(product_rating,rating);
-//
-//       Double expected_rating = Double.valueOf((product_rating));
-//       Double actual_rating = Double.valueOf(rating);
-//
-//       Assert.assertTrue(actual_rating>expected_rating);
-//        System.out.println("product actual rating is "+"\t"+actual_rating+"\t"+"expected rating is"+"\t"+expected_rating);
+        action.compare_ratings(rating, product_rating);
+
+    }
+// scenarios to verify free shipping
+
+    @When("^User verifies product price$")
+    public void user_verifies_product_price() {
+        element.product_amount().getText();
+        try {
+            String[] amount = element.product_amount().getText().split(" ");
+            actual_amount = amount[0];
+            System.out.println("Price of the product is" + "\t" + actual_amount);
+
+        } catch (Throwable e) {
+            action.close_pop_up();   //pop up killer
+            String[] amount = element.product_amount().getText().split(" ");
+            actual_amount = amount[0];
+            System.out.println("Price of the product is" + "\t" + actual_amount);
+        }
+    }
+
+    @Then("^User should be able to verify free shipping message as per ([^\"]*)$")
+    public void user_should_be_able_to_verify_free_shipping_as_per_price(String price) {
+        Integer expected_amount = Integer.valueOf(price);
+        Integer actual_product_amount = Integer.valueOf(actual_amount);
+
+        if (actual_product_amount > expected_amount) {
+            Assert.assertTrue(element.free_shipping().isDisplayed());
+
+        } else {
+            Assert.assertFalse(element.free_shipping().isDisplayed());
+        }
 
 
+    }
+    @When("User verifies similar products")
+    public void user_verifies_similar_products() {
+
+        List <WebElement> list = new ArrayList<>();
+        list = element.similar_products();
+
+        for(WebElement itr : list) {
+            System.out.println(itr.getText());
+        }
+
+    }
+
+    @Then("User should be only see similar products from parent product Gucci")
+    public void user_should_be_only_see_similar_products_from_parent_product_gucci() {
     }
 }
