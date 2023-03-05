@@ -61,7 +61,7 @@ dependencies are managed using the pom.xml file
 ## git branches
 
 There are 2 brnaches in this repo.
-* Master
+* Main
 * Feature
 
 - Most of the development done in feature branch and later merged with master.
