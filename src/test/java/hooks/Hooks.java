@@ -2,6 +2,8 @@ package hooks;
 
 import config.BaseClass;
 import io.cucumber.java.*;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 import java.io.IOException;
@@ -36,8 +38,10 @@ public class Hooks extends BaseClass {
 
         System.out.println("Scenario"+"\t"+"execution status is"+sc.getStatus());
 
-        if(sc.getStatus().toString().toLowerCase().equals("Passed")){
-            screenshot(sc.getName() ,driver);
+        if(sc.isFailed()){
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            byte[] screenshot = ts.getScreenshotAs(OutputType.BYTES);
+            sc.attach(screenshot,"image/png","attach screenshot");
         }
 
     }

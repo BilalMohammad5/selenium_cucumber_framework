@@ -8,17 +8,12 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 @Listeners(listernerConfig.Listeners.class)
 public class product_search extends BaseClass {
@@ -54,30 +49,25 @@ public class product_search extends BaseClass {
 
     @And("User adds product to cart")
     public void User_adds_product_to_cart() throws InterruptedException {
-        try {
-            action.click_element(element.add_button());
-            action.click_element(element.add_to_cart_1());
-        } catch (Throwable e) {
-            System.out.println("entered cache block");
-            e.printStackTrace();
-            e.getMessage();
-            WebElement element_Field = wait.until(visibilityOf(element.close_pop_up()));
-            element_Field.click();
-            System.out.println("pop up closed");
-            action.click_element(element.add_to_cart_1());
-        }
+        action.close_pop_up();
+        action.click_element(element.add_button());
+        action.click_element(element.add_to_cart_1());
 
     }
 
-    @Then("user should navigate to product page")
+    @Then("^User must see product added to cart message$")
     public void user_should_navigate_to_product_page() {
-
+        action.close_pop_up();
+        System.out.println(element.product_added_to_cart().getText());
         Assert.assertTrue(element.product_added_to_cart().isDisplayed());
         System.out.println("Product added to cart");
+        action.click_element(element.view_account_button());
+        action.click_element(element.login_button());
     }
 
+    // scenarios to  Verify product rating
 
-    @Given("^User launches the product ([^\"]*)$")
+    @Given("^User launches the product([^\"]*)$")
     public void user_launches_the_product(String product_name) {
         driver.get(product_url);
         String actual_title = driver.getTitle();
@@ -138,19 +128,16 @@ public class product_search extends BaseClass {
 
 
     }
-    @When("User verifies similar products")
-    public void user_verifies_similar_products() {
 
-        List <WebElement> list = new ArrayList<>();
-        list = element.similar_products();
-
-        for(WebElement itr : list) {
-            System.out.println(itr.getText());
-        }
-
+    @When("^User verifies similar products([^\"]*)$")
+    public void user_verifies_similar_products(String brand) {
+        System.out.println("Required brands to be validates is " + brand);
+        action.comparing_similar_products(brand);   //calling a reusable method to compare similar product brand
     }
 
-    @Then("User should be only see similar products from parent product Gucci")
-    public void user_should_be_only_see_similar_products_from_parent_product_gucci() {
+
+    @Then("User should be only see similar products from parent product")
+    public void user_should_be_only_see_similar_products_from_parent_product() {
+
     }
 }

@@ -2,14 +2,17 @@ package Helper;
 
 import config.BaseClass;
 import config.PageObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class Helper extends BaseClass {
     PageObject element = new PageObject(driver); // Creating Page Object reference
@@ -34,9 +37,6 @@ public class Helper extends BaseClass {
             element_Field.click();
             System.out.println(element.getText() + "\t" + "element clicked");
         } catch (Throwable e) {
-
-            System.out.println(e.getMessage());
-            e.printStackTrace();
             js.executeScript("arguments[0].click();", js_element); //try to interact with element using js executor
 
         }
@@ -49,25 +49,46 @@ public class Helper extends BaseClass {
             element_Field.sendKeys(text);
             System.out.println(text + "\t" + " entered into the field");
         } catch (Throwable e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+
             js.executeScript("arguments[0].click();", js_element);
             js.executeScript("document." + element + "[0].value= " + text + ""); //trying to enter text using js executor
         }
     }
 
     public void close_pop_up() {
-        System.out.println("entered pop up killer");
-        WebElement element_Field = wait.until(visibilityOf(element.close_pop_up()));
-        element_Field.click();
-        System.out.println("pop up closed");
+        try {
+            System.out.println("entered pop up killer");
+            WebElement element_Field = wait.until(visibilityOf(element.close_pop_up()));
+            element_Field.click();
+            System.out.println("pop up closed");
+        } catch (Throwable e) {
+            System.out.println("pop up not found");
+        }
     }
-    public void compare_ratings(String act_rating, String exp_rating){
+
+    public void compare_ratings(String act_rating, String exp_rating) {
         Double expected_rating = Double.valueOf((exp_rating));
         Double actual_rating = Double.valueOf(act_rating);
 
-        Assert.assertTrue(actual_rating>expected_rating);
-        System.out.println("product actual rating is "+"\t"+actual_rating+"\t"+"expected rating is"+"\t"+expected_rating);
+        Assert.assertTrue(actual_rating > expected_rating);
+        System.out.println("product actual rating is " + "\t" + actual_rating + "\t" + "expected rating is" + "\t" + expected_rating);
+
+    }
+
+    public void comparing_similar_products(String product_brand) {
+        close_pop_up();
+        WebElement ele = driver.findElement(By.xpath("//div[@class='product-list-container product-list-container-0']"));
+        js.executeScript("arguments[0].scrollIntoView(true);", ele);
+
+        System.out.println("Scrolled to required view ");
+        List<WebElement> list = new ArrayList<>();
+        list = driver.findElements(By.xpath("//div[@class='product-list-container product-list-container-0']/ul/li/div/a/div[4]/div/div[1]"));
+
+        System.out.println("Total number of similar products found are" + "\t" + list.size());
+
+        for (WebElement itr : list) {
+            Assert.assertTrue(itr.getText().equalsIgnoreCase(product_brand)); //comparing similar products brand with Expected Brand
+        }
 
     }
 }

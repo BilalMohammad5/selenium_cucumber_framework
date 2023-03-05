@@ -17,12 +17,13 @@ public class PageObject extends BaseClass {
     By add_button = By.xpath("//div[@class='product-card']/div[2]/div/button");
     By add_to_cart_1 = By.xpath("//div[@class='add-to-cart-popup']/div/div[2]/div[2]");
     By close_pop_up = By.xpath("//button[@class='ab-close-button']");
-    By product_added_to_cart = By.xpath("//div[@class='notifications fixed']/span/div/div[@class='message p20']']");
+    By product_added_to_cart = By.xpath("//div[@class='notifications fixed']/span/div/div[@class='message p20']");
     By rating_by_number = By.xpath("//span[@class='avg-rating']");
     By product_amount = By.xpath("//div[@class='price-content']/div/span[2]");
     By free_shipping = By.xpath("//div[@class='product-status']/span");
     //div[@class='product-list-container product-list-container-0']/ul/li/div/a/div[3]/div/div/font/font
     By similar_products = By.xpath("//div[@class='product-list-container product-list-container-0']/ul/li/div/a/div[3]/div/div/font/font");
+    By log_out = By.xpath("//div[@data-testid='accountButton'] /div/div[2]/a");
 
 
     By description = By.xpath("//div[@class='currentRow']/div[3]/input");
@@ -111,6 +112,11 @@ public class PageObject extends BaseClass {
     public WebElement product_added_to_cart() {
 
         return driver.findElement(product_added_to_cart);
+
+    }
+    public WebElement log_out() {
+
+        return driver.findElement(log_out);
 
     }
 }
