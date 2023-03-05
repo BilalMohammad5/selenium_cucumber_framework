@@ -77,10 +77,7 @@ public class Helper extends BaseClass {
 
     public void comparing_similar_products(String product_brand) {
         close_pop_up();
-        WebElement ele = driver.findElement(By.xpath("//div[@class='product-list-container product-list-container-0']"));
-        js.executeScript("arguments[0].scrollIntoView(true);", ele);
 
-        System.out.println("Scrolled to required view ");
         List<WebElement> list = new ArrayList<>();
         list = driver.findElements(By.xpath("//div[@class='product-list-container product-list-container-0']/ul/li/div/a/div[4]/div/div[1]"));
 

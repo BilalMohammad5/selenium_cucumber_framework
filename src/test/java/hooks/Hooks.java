@@ -30,7 +30,7 @@ public class Hooks extends BaseClass {
     }
     @Before("@smoke")
     public static void before(Scenario sc) {
-        //System.out.println("Scenario"+ "\t"+sc.getName()+"execution started");
+        System.out.println("Scenario"+ "\t"+sc.getName()+"execution started");
     }
 
     @After

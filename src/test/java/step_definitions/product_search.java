@@ -7,7 +7,10 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
@@ -19,6 +22,7 @@ import java.sql.SQLException;
 public class product_search extends BaseClass {
     String rating;
     String actual_amount;
+    JavascriptExecutor js = (JavascriptExecutor) driver;
     WebDriverWait wait = new WebDriverWait(driver, 30);
 
     String product_url = "https://www.goldenscent.com/en/p/gucci-guilty-absolute-pour-homme-eau-de-parfum-for-men.html?action=prod&id=6108";
@@ -129,15 +133,20 @@ public class product_search extends BaseClass {
 
     }
 
-    @When("^User verifies similar products([^\"]*)$")
-    public void user_verifies_similar_products(String brand) {
-        System.out.println("Required brands to be validates is " + brand);
-        action.comparing_similar_products(brand);   //calling a reusable method to compare similar product brand
+    @When("^User navigates to similar products$")
+    public void User_navigates_to_similar_products() {
+        WebElement ele = driver.findElement(By.xpath("//div[@class='product-list-container product-list-container-0']"));
+        js.executeScript("arguments[0].scrollIntoView(true);", ele);
+        System.out.println("Scrolled to required product view ");
+
+
     }
 
 
-    @Then("User should be only see similar products from parent product")
-    public void user_should_be_only_see_similar_products_from_parent_product() {
+    @Then("^User should only see products from parent ([^\"]*)$")
+    public void User_should_only_see_products_from_parent_brand(String brand) {
+        System.out.println("Required brands to be validates is " + brand);
+        action.comparing_similar_products(brand);   //calling a reusable method to compare similar product brand
 
     }
 }

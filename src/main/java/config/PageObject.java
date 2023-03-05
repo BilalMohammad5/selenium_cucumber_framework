@@ -25,14 +25,6 @@ public class PageObject extends BaseClass {
     By similar_products = By.xpath("//div[@class='product-list-container product-list-container-0']/ul/li/div/a/div[3]/div/div/font/font");
     By log_out = By.xpath("//div[@data-testid='accountButton'] /div/div[2]/a");
 
-
-    By description = By.xpath("//div[@class='currentRow']/div[3]/input");
-    By descriptionHeader = By.xpath("//div[@class='currentRow']/div[3]");
-    By userMenu = By.xpath("//div[@id='activeUserMenu']/div/img");
-    By logout = By.xpath("//span[contains(text(),'Log Out')]");
-
-    By save = By.id("saveButton");
-
     public PageObject(WebDriver driver) {
         // TODO Auto-generated constructor stub
         this.driver = driver;  // assigning driver instance from Launch class to local instance
