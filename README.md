@@ -63,8 +63,9 @@ dependencies are managed using the pom.xml file
 There are 2 brnaches in this repo.
 * Main
 * Feature
+* Most of the development done in feature branch and later merged with main
 * .git ignore file -  As  good practice heavier files must be exceluded but intentionally /driver / reports are not excluded
-- Most of the development done in feature branch and later merged with master.
+
 ## Author
 * Name - Bilal Mohammad
 * Linkedin - https://www.linkedin.com/in/bilal-mohammad-552b0b159/
