@@ -23,7 +23,7 @@ Framework mainly has 2 folder
 
 
 
-## Initiating Selenium driver
+## Initiating Driver
 The compatible chrome driver is placed in/driver folder located in the project directory
 
 * chromedriver.exe must be executed in the command line and be made sure that the selenium server is up and running.
