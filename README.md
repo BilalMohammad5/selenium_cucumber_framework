@@ -1,7 +1,7 @@
 
 # Selenium -Cucumber Custom Framework 
 
-This is a Meaven project built using Selenium, It is integrated with cucumber for writing feature files and execution of test cases
+This is a Meaven project built using Selenium -JAVA, It is integrated with cucumber for writing feature files and execution of test cases
 
 
 ## Test Execution Flow
